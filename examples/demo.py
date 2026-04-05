@@ -37,14 +37,14 @@ def main():
     # Compare nutrition across multiple food items.
     print("📝 Example: compare_foods()")
     result = compare_foods(
-        foods="sample data"
+        foods=["item1", "item2", "item3"]
     )
     print(f"   Result: {result}")
     print()
     # Read text content from a file.
     print("📝 Example: read_file()")
     result = read_file(
-        file_path="sample.txt"  # Replace with actual file path
+        file_path="sample.txt"
     )
     print(f"   Result: {result}")
     print()
