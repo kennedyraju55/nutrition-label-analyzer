@@ -1,321 +1,521 @@
 <div align="center">
-<img src="https://img.shields.io/badge/🥗_Nutrition_Label_Analyzer-Local_LLM_Powered-blue?style=for-the-badge&labelColor=1a1a2e&color=16213e" alt="Project Banner" width="600"/>
-<br/>
-<img src="https://img.shields.io/badge/Gemma_4-Ollama-orange?style=flat-square&logo=google&logoColor=white" alt="Gemma 4"/>
-<img src="https://img.shields.io/badge/Python-3.9+-blue?style=flat-square&logo=python&logoColor=white" alt="Python"/>
-<img src="https://img.shields.io/badge/Streamlit-Web_UI-red?style=flat-square&logo=streamlit&logoColor=white" alt="Streamlit"/>
-<img src="https://img.shields.io/badge/Click-CLI-green?style=flat-square&logo=gnu-bash&logoColor=white" alt="Click CLI"/>
-<img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="License"/>
-<br/><br/>
-<strong>Part of <a href="https://github.com/kennedyraju55/90-local-llm-projects">90 Local LLM Projects</a> collection</strong>
+
+![Nutrition Label Analyzer Banner](docs/images/banner.svg)
+
+# 🏥 Nutrition Label Analyzer
+
+### AI-Powered Nutrition Analysis & Meal Tracking
+
+[![Python](https://img.shields.io/badge/Python-3.10+-3776ab?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Ollama](https://img.shields.io/badge/Ollama-Local_LLM-black?style=for-the-badge&logo=ollama&logoColor=white)](https://ollama.com)
+[![License](https://img.shields.io/badge/License-MIT-06d6a0?style=for-the-badge)](LICENSE)
+[![Healthcare](https://img.shields.io/badge/Healthcare-AI_Tool-06d6a0?style=for-the-badge&logo=heart&logoColor=white)]()
+[![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-success?style=for-the-badge&logo=lock&logoColor=white)]()
+
 </div>
-<br/>
-# 🍽️ Nutrition Label Analyzer
-
-![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)
-![License MIT](https://img.shields.io/badge/License-MIT-green)
-![Streamlit](https://img.shields.io/badge/Streamlit-Web_UI-FF4B4B?logo=streamlit&logoColor=white)
-![CLI](https://img.shields.io/badge/CLI-Click-orange?logo=gnubash&logoColor=white)
 
 ---
 
-> ## ⚕️ MEDICAL DISCLAIMER
+> ## ⚠️ Medical Disclaimer
 >
-> **⚠️ This tool is for EDUCATIONAL purposes ONLY.**
+> **This tool is for educational purposes only. It is NOT a substitute for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider for medical concerns. Never disregard professional medical advice or delay seeking it because of information from this tool.**
 >
-> All nutrition data and health insights are **AI-generated ESTIMATES** and may be
-> **inaccurate or incomplete**. This is **NOT** medical, dietary, or health advice.
+> - 🚨 **Call 911** for medical emergencies
+> - 📞 **Call 988** for mental health crises (Suicide & Crisis Lifeline)
+> - 💬 **Text HOME to 741741** for Crisis Text Line
 >
-> - Do **NOT** use this tool to make medical or dietary decisions.
-> - Do **NOT** rely on allergen detection for allergy safety — always verify with official sources.
-> - **Always consult a qualified healthcare professional or registered dietitian** before
->   making dietary changes or health decisions.
->
-> The authors and contributors accept **no liability** for any consequences arising from
-> the use of this tool.
+> *The developers assume no liability for any actions taken based on this tool's output.*
 
 ---
 
-## 📖 About
+<div align="center">
 
-**Nutrition Label Analyzer** is an AI-powered nutrition analysis and tracking toolkit that
-uses a local LLM (via [Ollama](https://ollama.ai/)) to provide estimated nutritional
-breakdowns, health scores, allergen detection, meal tracking, and dietary goal management.
+[✨ Features](#-features) · [🚀 Quick Start](#-quick-start) · [💻 CLI Reference](#-cli-reference) · [🏗️ Architecture](#️-architecture) · [📖 API Reference](#-api-reference) · [❓ FAQ](#-faq)
 
-Available as both a **Rich CLI** and a **Streamlit Web UI**.
+</div>
 
 ---
 
-## 🏗️ Architecture
+## 📋 Overview
 
-```
-┌─────────────────────────────────────────────────┐
-│                  User Interface                 │
-│  ┌──────────────────┐  ┌──────────────────────┐ │
-│  │   Click CLI      │  │  Streamlit Web UI    │ │
-│  │  (cli.py)        │  │  (web_ui.py)         │ │
-│  └────────┬─────────┘  └────────┬─────────────┘ │
-│           │                     │               │
-│  ┌────────▼─────────────────────▼─────────────┐ │
-│  │              Core Logic (core.py)          │ │
-│  │  • Food Analysis    • Daily Values         │ │
-│  │  • Label Analysis   • Meal Tracking        │ │
-│  │  • Food Comparison  • Allergen Checking    │ │
-│  │  • Dietary Goals    • %DV Calculations     │ │
-│  └────────┬───────────────────────────────────┘ │
-│           │                                     │
-│  ┌────────▼───────────────────────────────────┐ │
-│  │         common.llm_client (Ollama)         │ │
-│  │  generate() / check_ollama_running()       │ │
-│  └────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────┘
-```
+A comprehensive nutrition analysis tool that evaluates foods, analyzes nutrition labels, compares multiple foods, tracks daily meals, checks allergens, and calculates FDA daily values — all powered by local LLMs for complete dietary privacy.
+
+Built as part of the **Local LLM Projects** series (Project #86/90), this tool demonstrates how AI can be applied to healthcare education while maintaining complete data privacy through local model inference.
+
+### Why This Project?
+
+| | Feature | Description |
+|---|---------|-------------|
+| 🥗 | **Food Analysis** | AI-powered nutritional breakdown of any food item |
+| 📊 | **Daily Values** | Calculate %DV against FDA reference values for 13 nutrients |
+| 🍽️ | **Meal Tracking** | Track daily meals with nutrient totals and remaining budget |
+| ⚠️ | **Allergen Check** | Scan foods against FDA Big 9 common allergens |
+| 🥊 | **Food Comparison** | Compare nutritional profiles of multiple foods side-by-side |
+| 🎯 | **5 Diet Presets** | Balanced, low-carb, high-protein, keto, weight-loss goals |
 
 ---
 
 ## ✨ Features
 
+<div align="center">
+
+![Features Overview](docs/images/features.svg)
+
+</div>
+
+| Feature | Details |
+|---------|---------|
+| **FDA Daily Values** | Calculate %DV for 13 nutrients: calories, fats, cholesterol, sodium, carbs, fiber, sugars, protein, vitamins |
+| **Big 9 Allergens** | Check against FDA major allergens: milk, eggs, fish, shellfish, tree nuts, peanuts, wheat, soy, sesame |
+| **5 Diet Presets** | Balanced, low-carb, high-protein, keto, weight-loss with macro percentages |
+| **Meal Tracker** | Daily meal tracking with nutrient totals, remaining budget, and meal history |
+| **Food Comparison** | Side-by-side nutritional comparison of multiple food items |
+| **Label Analysis** | Parse and analyze nutrition label text from files |
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+| Requirement | Version | Purpose |
+|-------------|---------|---------|
+| **Python** | 3.10+ | Runtime environment |
+| **Ollama** | Latest | Local LLM inference engine |
+| **LLM Model** | llama3.2 | AI model (downloaded via Ollama) |
+
+### Installation
+
+`ash
+# 1. Clone the repository
+git clone https://github.com/kennedyraju55/nutrition-label-analyzer.git
+cd 86-nutrition-label-analyzer
+
+# 2. Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# or
+.\venv\Scripts\activate  # Windows
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Ensure Ollama is running with a model
+ollama pull llama3.2
+ollama serve
+`
+
+### First Run
+
+`ash
+# Verify installation
+nutrition-label-analyzer --help
+
+# Run your first command
+nutrition-label-analyzer analyze --food "grilled chicken breast 6oz"
+`
+
+### Expected Output
+
+`
+╭─────────────────────────────────────────────────────────────╮
+│  ⚠️  MEDICAL DISCLAIMER                                     │
+│  This tool is for educational purposes only.                │
+│  Always consult a qualified healthcare provider.            │
+╰─────────────────────────────────────────────────────────────╯
+
+⏳ Analyzing with local LLM...
+
+╭─────────────────────────────────────────────────────────────╮
+│  ✅ Analysis Complete                                        │
+│                                                             │
+│  [AI-generated response based on your input]                │
+│                                                             │
+│  ⚠️  Remember: This is not medical advice.                  │
+╰─────────────────────────────────────────────────────────────╯
+`
+
+---
+
+## 💻 CLI Reference
+
+| Command | Description |
+|---------|-------------|
+| analyze | Analyze a single food item |
+| label | Analyze nutrition label from file |
+| compare | Compare multiple foods |
+| daily-values | Calculate %DV for nutrients |
+| track | Track meals throughout the day |
+| allergen-check | Check food for allergens |
+| goals | Show dietary goal presets |
+
+### analyze
+
+`ash
+nutrition-label-analyzer analyze --food "grilled chicken breast 6oz"
+`
+
+### label
+
+`ash
+nutrition-label-analyzer label --file nutrition_label.txt
+`
+
+### compare
+
+`ash
+nutrition-label-analyzer compare --foods "apple, banana, orange"
+`
+
+### daily-values
+
+`ash
+nutrition-label-analyzer daily-values --food "calories=250 fat=12 protein=20"
+`
+
+### track
+
+`ash
+nutrition-label-analyzer track --meal "lunch: grilled salmon with rice"
+`
+
+### allergen-check
+
+`ash
+nutrition-label-analyzer allergen-check --food "pad thai" --allergens "peanuts,shellfish"
+`
+
+### goals
+
+`ash
+nutrition-label-analyzer goals --preset keto
+`
+
+### Global Options
+
+`ash
+nutrition-label-analyzer --help          # Show all commands and options
+nutrition-label-analyzer --version       # Show version information
+`
+
+---
+
+## 🌐 Web UI
+
+This project includes a web-based interface for browser-based interaction.
+
+`ash
+# Start the web server
+cd web
+python app.py
+
+# Open in browser
+# http://localhost:5000
+`
+
 | Feature | Description |
 |---------|-------------|
-| 🍽️ **Food Analysis** | Get AI-estimated nutrition data for any food item |
-| 📋 **Label Analysis** | Parse nutrition label text for a detailed health assessment |
-| ⚖️ **Food Comparison** | Compare multiple foods side-by-side |
-| 📊 **Daily Tracking** | Track meals and monitor daily nutrient intake |
-| ⚠️ **Allergen Detection** | Scan food descriptions for the FDA Big 9 allergens |
-| 🎯 **Dietary Goals** | Choose from preset macro goals (Balanced, Keto, High Protein, etc.) |
-| 📈 **%Daily Values** | Calculate FDA percent Daily Values for any nutrient set |
-| 🏥 **Health Scoring** | Each food receives a 1–10 health score with explanation |
-| 🎨 **Rich Output** | Color-coded console display with structured information |
-| 🌐 **Web UI** | Interactive Streamlit dashboard for all features |
+| **Responsive Design** | Works on desktop and mobile browsers |
+| **Real-Time Analysis** | Live streaming responses from local LLM |
+| **Dark Mode** | Easy on the eyes with dark theme support |
+| **Export Results** | Download analysis results as text files |
+
+> ⚠️ **Note**: The web UI connects to your local Ollama instance. No data leaves your machine.
 
 ---
 
-## 📋 Prerequisites
+## 🏗️ Architecture
 
-- **Python 3.10+**
-- **[Ollama](https://ollama.ai/)** running locally with a model pulled:
-  ```bash
-  ollama pull llama3
-  ```
+<div align="center">
 
----
+![Architecture Diagram](docs/images/architecture.svg)
 
-## 🚀 Installation
+</div>
 
-### Option 1: pip install (editable)
+### Project Structure
 
-```bash
-cd 86-nutrition-label-analyzer
-pip install -e ".[dev]"
-```
+`
+86-nutrition-label-analyzer/
+├── src/
+│   └── nutrition_label_analyzer/
+│       ├── __init__.py
+│       ├── core.py          # Core logic and LLM integration
+│       └── cli.py           # Click CLI commands
+├── tests/
+│   ├── __init__.py
+│   └── test_core.py         # Unit tests
+├── docs/
+│   └── images/
+│       ├── banner.svg        # Project banner
+│       ├── architecture.svg  # Architecture diagram
+│       └── features.svg      # Feature grid
+├── config.yaml              # Model configuration
+├── requirements.txt         # Python dependencies
+└── README.md                # This file
+`
 
-### Option 2: requirements.txt
+### Data Flow
 
-```bash
-cd 86-nutrition-label-analyzer
-pip install -r requirements.txt
-```
+`
+User Input → CLI/Web Interface → Core Engine → LLM (Ollama) → Response
+                                      ↓
+                              Built-in Databases
+                              (patterns, rules, references)
+`
 
-### Option 3: Makefile
+### Technology Stack
 
-```bash
-make install
-```
-
----
-
-## 💻 CLI Usage
-
-All commands are available through the `nutrition-analyzer` entry point or via
-`python -m nutrition_analyzer.cli`.
-
-### Analyze a food item
-
-```bash
-nutrition-analyzer analyze --food "Big Mac"
-```
-
-### Analyze a nutrition label file
-
-```bash
-nutrition-analyzer label --file nutrition.txt
-```
-
-### Compare multiple foods
-
-```bash
-nutrition-analyzer compare --foods "Big Mac,Grilled Chicken Salad,Caesar Salad"
-```
-
-### Calculate %Daily Values
-
-```bash
-nutrition-analyzer daily-values --food "calories=550,total_fat=30,sodium=1000"
-```
-
-### Track meals
-
-```bash
-# Add a meal
-nutrition-analyzer track --meal "Lunch: calories=600,protein=30,carbs=50,fat=20"
-
-# View summary
-nutrition-analyzer track --summary
-
-# Reset tracker
-nutrition-analyzer track --reset
-```
-
-### Allergen check
-
-```bash
-nutrition-analyzer allergen-check --food "peanut butter on wheat bread with milk"
-nutrition-analyzer allergen-check --food "oat milk smoothie" --allergens "milk,soy,wheat"
-```
-
-### Dietary goals
-
-```bash
-# Show all presets
-nutrition-analyzer goals --show
-
-# View a specific preset
-nutrition-analyzer goals --preset keto
-```
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| **CLI** | Click | Command-line interface framework |
+| **UI** | Rich | Beautiful terminal formatting |
+| **AI** | Ollama | Local LLM inference |
+| **Web** | Flask | Web interface (optional) |
+| **Config** | YAML | Configuration management |
+| **Testing** | pytest | Unit and integration tests |
 
 ---
 
-## 🌐 Web UI Usage
+## 📖 API Reference
 
-Launch the Streamlit dashboard:
+### Core Functions
 
-```bash
-streamlit run src/nutrition_analyzer/web_ui.py
-```
+`python
+from nutrition_label_analyzer.core import analyze_food, check_allergens, MealTracker, DietaryGoal
 
-Or:
+# Analyze a food item
+analysis = analyze_food("grilled chicken breast 6oz")
+print(analysis)
 
-```bash
-make run-web
-```
+# Check for allergens
+allergens = check_allergens("pad thai with shrimp and peanuts")
+# Returns: ["shellfish", "peanuts"]
 
-The web interface provides four pages accessible from the sidebar:
+# Track daily meals
+tracker = MealTracker(goal=DietaryGoal.HIGH_PROTEIN)
+tracker.add_meal("lunch", "grilled salmon with quinoa")
+print(tracker.get_summary())
+`
 
-- **🍽️ Food Analysis** — Enter a food item, paste a nutrition label, or compare foods
-- **📊 Daily Tracker** — Add meals with nutrient values, view running totals and remaining budget
-- **⚠️ Allergen Check** — Scan food descriptions against selectable allergens
-- **🎯 Dietary Goals** — Browse preset macro goals with calorie and gram breakdowns
+### Configuration
 
----
+`yaml
+# config.yaml
+model: llama3.2
+temperature: 0.3
+max_tokens: 1024
+base_url: http://localhost:11434
+`
 
-## ⚙️ Configuration
+### Environment Variables
 
-Application settings are stored in `config.yaml`:
-
-```yaml
-llm:
-  model: "llama3"
-  temperature: 0.3
-  max_tokens: 2048
-
-daily_values:
-  calories: 2000
-  total_fat_g: 78
-  sodium_mg: 2300
-  ...
-```
-
-Environment variables can be set via `.env` (see `.env.example`):
-
-```
-OLLAMA_HOST=http://localhost:11434
-OLLAMA_MODEL=llama3
-LOG_LEVEL=INFO
-```
+| Variable | Default | Description |
+|----------|---------|-------------|
+| OLLAMA_BASE_URL | http://localhost:11434 | Ollama API endpoint |
+| OLLAMA_MODEL | llama3.2 | Default LLM model |
+| LOG_LEVEL | INFO | Logging verbosity |
 
 ---
 
 ## 🧪 Testing
 
-Run the full test suite:
+`ash
+# Run all tests
+pytest
 
-```bash
-python -m pytest tests/ -v --tb=short
-```
+# Run with coverage report
+pytest --cov=src/nutrition_label_analyzer --cov-report=html
 
-Or via Makefile:
+# Run specific test file
+pytest tests/test_core.py -v
 
-```bash
-make test
-```
+# Run with verbose output
+pytest -v --tb=short
+`
 
-Test coverage:
+### Test Categories
 
-```bash
-python -m pytest tests/ -v --cov=src/nutrition_analyzer --cov-report=term-missing
-```
+| Category | Description | Command |
+|----------|-------------|---------|
+| **Unit Tests** | Core logic validation | pytest tests/test_core.py |
+| **CLI Tests** | Command-line interface tests | pytest tests/test_cli.py |
+| **Integration** | End-to-end with LLM | pytest tests/test_integration.py |
 
 ---
 
-## 📁 Project Structure
+## 🔄 Local vs Cloud Comparison
 
-```
-86-nutrition-label-analyzer/
-├── app.py                          # Original standalone app
-├── config.yaml                     # Application configuration
-├── setup.py                        # Package setup
-├── requirements.txt                # Dependencies
-├── Makefile                        # Common tasks
-├── .env.example                    # Environment variable template
-├── README.md                       # This file
-├── src/
-│   ├── __init__.py
-│   └── nutrition_analyzer/
-│       ├── __init__.py             # Package metadata & version
-│       ├── core.py                 # Core logic: analysis, tracking, allergens, goals
-│       ├── cli.py                  # Click CLI interface
-│       └── web_ui.py               # Streamlit web dashboard
-├── tests/
-│   ├── __init__.py
-│   ├── test_core.py                # Core module tests
-│   └── test_cli.py                 # CLI command tests
-└── test_app.py                     # Original app tests
-```
+| Aspect | Local LLM (This Tool) | Cloud API |
+|--------|----------------------|-----------|
+| **Privacy** | ✅ 100% local — data never leaves your machine | ❌ Data sent to external servers |
+| **Cost** | ✅ Free after setup | ❌ Pay per API call |
+| **Speed** | ⚡ Depends on hardware | ⚡ Generally fast |
+| **Internet** | ✅ Works offline | ❌ Requires connection |
+| **Data Control** | ✅ Complete control | ❌ Third-party storage |
+| **HIPAA Concerns** | ✅ No data transmission | ⚠️ BAA required |
+| **Model Updates** | 🔄 Manual model pulls | ✅ Automatic updates |
+| **Scalability** | ⚠️ Limited by hardware | ✅ Cloud-scale |
+
+> 🔒 **For healthcare data, local LLM inference eliminates the risk of sensitive information exposure through network transmission.**
+
+---
+
+## ❓ FAQ
+
+<details>
+<summary><strong>Can I use this for managing a medical diet?</strong></summary>
+<br>
+
+No. This tool provides general nutritional information but cannot account for medical conditions (diabetes, kidney disease, etc.). Always work with a registered dietitian or your healthcare provider for medical dietary needs.
+
+> ⚠️ **Reminder**: This tool is for educational purposes only. Always consult qualified healthcare professionals.
+
+</details>
+
+<details>
+<summary><strong>How accurate are the nutrition estimates?</strong></summary>
+<br>
+
+AI-generated nutrition estimates are approximations. Actual values depend on preparation methods, portion sizes, brands, and ingredients. For precise values, use verified nutrition databases or product labels.
+
+> ⚠️ **Reminder**: This tool is for educational purposes only. Always consult qualified healthcare professionals.
+
+</details>
+
+<details>
+<summary><strong>Does it account for food allergies?</strong></summary>
+<br>
+
+The allergen checker scans against FDA Big 9 allergens but may miss unlisted ingredients or cross-contamination risks. Always read actual product labels and consult your allergist.
+
+> ⚠️ **Reminder**: This tool is for educational purposes only. Always consult qualified healthcare professionals.
+
+</details>
+
+<details>
+<summary><strong>Can I use the meal tracker for calorie counting?</strong></summary>
+<br>
+
+The tracker provides rough estimates. For medical weight management, use validated calorie-counting tools recommended by your healthcare provider.
+
+> ⚠️ **Reminder**: This tool is for educational purposes only. Always consult qualified healthcare professionals.
+
+</details>
+
+<details>
+<summary><strong>Are the dietary presets medically approved?</strong></summary>
+<br>
+
+The presets (keto, low-carb, etc.) are general guidelines. Some diets may not be appropriate for your health condition. Consult a healthcare provider before starting any new diet.
+
+> ⚠️ **Reminder**: This tool is for educational purposes only. Always consult qualified healthcare professionals.
+
+</details>
+
+---
+
+
+
+## FDA Daily Reference Values
+
+### 13 Tracked Nutrients
+
+| Nutrient | Daily Reference Value | Unit |
+|----------|----------------------|------|
+| Calories | 2,000 | kcal |
+| Total Fat | 78 | g |
+| Saturated Fat | 20 | g |
+| Trans Fat | 0 | g |
+| Cholesterol | 300 | mg |
+| Sodium | 2,300 | mg |
+| Total Carbohydrate | 275 | g |
+| Dietary Fiber | 28 | g |
+| Total Sugars | 50 | g |
+| Added Sugars | 50 | g |
+| Protein | 50 | g |
+| Vitamin D | 20 | mcg |
+| Calcium | 1,300 | mg |
+
+### Dietary Goal Presets
+
+| Preset | Calories | Protein | Carbs | Fat |
+|--------|----------|---------|-------|-----|
+| **Balanced** | 2,000 | 20% | 50% | 30% |
+| **Low Carb** | 1,800 | 30% | 25% | 45% |
+| **High Protein** | 2,200 | 35% | 40% | 25% |
+| **Keto** | 1,800 | 20% | 5% | 75% |
+| **Weight Loss** | 1,500 | 30% | 40% | 30% |
+
+### FDA Big 9 Allergens
+
+| Allergen | Common Sources |
+|----------|---------------|
+| Milk | Cheese, yogurt, butter, whey, casein |
+| Eggs | Baked goods, mayonnaise, pasta |
+| Fish | Sauces, supplements, imitation crab |
+| Shellfish | Shrimp, crab, lobster, crawfish |
+| Tree Nuts | Almonds, walnuts, cashews, pecans |
+| Peanuts | Peanut butter, sauces, baked goods |
+| Wheat | Bread, pasta, cereals, soy sauce |
+| Soy | Tofu, soy sauce, edamame, many processed foods |
+| Sesame | Tahini, hummus, bread, bagels |
+
+> Food allergy information from this tool is NOT exhaustive. Cross-contamination risks are NOT assessed. Always read actual product labels and consult your allergist for serious food allergies.
+
 
 ---
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Run tests (`make test`)
-4. Commit your changes
-5. Open a Pull Request
+Contributions are welcome! Please follow these steps:
+
+1. **Fork** the repository
+2. **Create** a feature branch (git checkout -b feature/amazing-feature)
+3. **Commit** your changes (git commit -m 'Add amazing feature')
+4. **Push** to the branch (git push origin feature/amazing-feature)
+5. **Open** a Pull Request
+
+### Development Setup
+
+`ash
+# Clone your fork
+git clone https://github.com/YOUR_USERNAME/nutrition-label-analyzer.git
+cd 86-nutrition-label-analyzer
+
+# Install dev dependencies
+pip install -r requirements.txt
+pip install pytest pytest-cov black flake8
+
+# Run linting
+black src/
+flake8 src/
+
+# Run tests before submitting
+pytest -v
+`
 
 ---
 
-> ## ⚕️ DISCLAIMER (REPEATED FOR EMPHASIS)
->
-> **This tool is for EDUCATIONAL purposes ONLY.**
->
-> All nutrition information is **AI-generated** and may be **inaccurate**.
-> This is **NOT** medical or dietary advice. **Always consult a qualified
-> healthcare professional or registered dietitian** before making any
-> dietary changes or health decisions.
->
-> Allergen detection is a **heuristic text search** and must **NOT** be
-> relied upon for allergy safety. Always verify allergen information from
-> official product labeling and manufacturer sources.
+## 📄 License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
 ---
 
-*Built with ❤️ using [Ollama](https://ollama.ai/), [Click](https://click.palletsprojects.com/), [Rich](https://rich.readthedocs.io/), and [Streamlit](https://streamlit.io/).*
+<div align="center">
+
+### ⚠️ Important Reminder
+
+**This tool is for educational and informational purposes only.**
+**It is NOT a substitute for professional medical advice, diagnosis, or treatment.**
+**Always seek the advice of your physician or other qualified health provider.**
 
 ---
 
-## 📸 Screenshots
+**Part of the [Local LLM Projects](https://github.com/kennedyraju55) Series — Project #86/90**
 
-<!-- Add screenshots of your application here -->
-<!-- ![Screenshot](assets/screenshot.png) -->
+Built with ❤️ using [Ollama](https://ollama.com) · [Python](https://python.org) · [Click](https://click.palletsprojects.com) · [Rich](https://rich.readthedocs.io)
 
-*Screenshots coming soon...*
+*⭐ Star this repo if you find it useful!*
+
+</div>
